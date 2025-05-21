@@ -33,7 +33,8 @@ df['species'] = df['target'].apply(lambda x: iris.target_names[x])
 # Visualizations
 
 # Line chart
-df.groupby('target').mean().T.plot(title='Mean Features per Target', marker='o')
+df.groupby('target')[df.select_dtypes(include='number').columns].mean().T.plot(title='Mean Features per Target', marker='o')
+
 plt.xlabel('Features')
 plt.ylabel('Mean Value')
 plt.grid(True)
