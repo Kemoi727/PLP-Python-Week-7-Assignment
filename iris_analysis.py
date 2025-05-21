@@ -62,3 +62,50 @@ plt.title('Sepal Length vs Petal Length')
 plt.tight_layout()
 plt.savefig('scatter_plot.png')
 plt.close()
+
+# code to manage potential issues such as file not found, data loading errors, etc. using try-except blocks.
+# Error handling
+import os
+import sys
+import traceback
+# Function to handle errors
+def handle_error(e):
+    print("An error occurred:")
+    print(f"Error type: {type(e).__name__}")
+    print(f"Error message: {e}")
+    print("Traceback:")
+    traceback.print_exc()
+    sys.exit(1)
+
+
+# Main function to run the analysis
+def main():
+    try:
+        # Load dataset
+        iris = load_iris()
+        df = pd.DataFrame(iris.data, columns=iris.feature_names)
+        df['target'] = iris.target
+
+        # Display first few rows
+        print("First 5 rows of the dataset:")
+        print(df.head())
+
+        # Check for missing values
+        print("\nMissing values:")
+        print(df.isnull().sum())
+
+        # Describe the dataset
+        print("\nStatistical Summary:")
+        print(df.describe())
+
+        # Group by target and calculate mean
+        print("\nMean values grouped by target:")
+        print(df.groupby('target').mean())
+
+    except Exception as e:
+        handle_error(e)
+# Run the main function
+if __name__ == "__main__":
+    main()
+# This code performs an analysis of the Iris dataset, including loading the data, checking for missing values,
+# and generating various visualizations. It also includes error handling to manage potential issues.    
